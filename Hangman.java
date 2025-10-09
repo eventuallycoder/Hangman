@@ -12,6 +12,7 @@ public class Hangman {
   {"Batmobile", "Detective", "Scarecrow", "Vengeance", "Vigilante"}
 };
 
+    String[] anArray;
     static String[] hangmanIterations = { """
             +---+
             |   |
