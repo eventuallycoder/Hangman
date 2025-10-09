@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Hangman {
@@ -12,7 +12,6 @@ public class Hangman {
   {"Batmobile", "Detective", "Scarecrow", "Vengeance", "Vigilante"}
 };
 
-    String[] anArray;
     static String[] hangmanIterations = { """
             +---+
             |   |
