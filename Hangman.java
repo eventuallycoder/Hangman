@@ -7,8 +7,8 @@ public class Hangman {
             { "Bane", "Cape", "Cowl", "Croc", "Fear" },
             { "Alley", "Bruce", "Clown", "Crime", "Joker", "Manor", "Quinn", "Robin", "Wayne", "Zsasz" },
             { "Alfred", "Arkham", "Asylum", "Enigma", "Freeze", "Gordon", "Gotham", "Harley", "Knight", "League",
-                    "Lucius", "Oracle", "Signal" },
-            { "Batcave", "Batgirl", "Batman", "Falcone", "Grapple", "Justice", "Penguin", "Riddler", "Shadows",
+                    "Lucius", "Oracle", "Signal","Batman" },
+            { "Batcave", "Batgirl", "Falcone", "Grapple", "Justice", "Penguin", "Riddler", "Shadows",
                     "Twoface", "Utility" },
             { "Batarang", "Catwoman", "Clayface", "Nightwing" },
             { "Batmobile", "Detective", "Scarecrow", "Vengeance", "Vigilante" }
@@ -82,7 +82,8 @@ public class Hangman {
     public static void menu() {
         System.out.println("--------\n(A) Start Game With Random Word Length");
         System.out.println("(B) Choose Word Length For Game");
-        System.out.println("(C) Exit\n--------");
+        System.out.println("(C) Exit");
+        System.out.println("--------");
     }
 
     //prints out the current word in underline form
@@ -163,6 +164,7 @@ public class Hangman {
         System.out.println("\nLets play! Good Luck!\n");
         System.out.println(hangmanIterations[hangmanIterationsIndex]);
 
+        //Print out the initial underlined word (The word we don't know yet but are guessing)
         printOutWord(underlineWordArray);
 
         //String that holds the guess for each round
@@ -172,14 +174,17 @@ public class Hangman {
         while(hangmanIterationsIndex < hangmanIterations.length) {
             System.out.print("\nWhat letter would you like to guess: ");
             guessString = scan.nextLine();
+            
+            //this string is used so that we can keep the original case format of guess string
+            String lowerCaseGuessString = guessString.toLowerCase();
 
-            if (word.toLowerCase().contains(guessString.toLowerCase())) {
+            if (word.toLowerCase().contains(lowerCaseGuessString)) {
                 System.out.println("\nThe letter " + guessString + " is in the word. Good job.");
                 System.out.println(hangmanIterations[hangmanIterationsIndex]);
 
                 //Adds the guessed letter anywhere it appeared in the word
                 for (int i = 0; i < wordArray.length; i++) {
-                    if (wordArray[i].equals(guessString)) {
+                    if (wordArray[i].toLowerCase().equals(lowerCaseGuessString)) {
                         underlineWordArray[i] = guessString;
                     }
                 }
@@ -189,9 +194,14 @@ public class Hangman {
             } else {
                 hangmanIterationsIndex++;
                 System.out.println("\nThe letter " + guessString + " is not in the word. So sorry.");
-                System.out.println(hangmanIterations[hangmanIterationsIndex]);
 
-                printOutWord(underlineWordArray);
+                //only print out the next ascii image if the index is less than the array length
+                if(hangmanIterationsIndex < hangmanIterations.length){
+                    System.out.println(hangmanIterations[hangmanIterationsIndex]);
+                    printOutWord(underlineWordArray);
+                }
+
+                 
             }
         }
           
@@ -210,7 +220,7 @@ public class Hangman {
         System.out.println("Welcome to the Hangman Game");
         System.out.println("Choose from the options below to start a game (Type the letter of option)");
 
-        menu();
+        //menu();
 
         System.out.print("Enter your choice here: ");
 
@@ -255,11 +265,14 @@ public class Hangman {
                     playHangman(word);
 
                     break;
+                default:
+
+                    System.out.println("\nInput: '" + whatToDo + "' is not an option. Please try entering 'A', 'B', or 'C'.");
             }
 
-            menu();
-            System.out.print("\nWhat would you like to do next: ");
-
+           // menu();
+            System.out.print("What would you like to do: ");
+           
             whatToDo = scan.nextLine();
         }
 
