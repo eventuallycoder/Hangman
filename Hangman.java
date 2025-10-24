@@ -1,6 +1,9 @@
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
+//note: user may type in letter value for word length, create an error protection
 public class Hangman {
 
     static String[][] wordBank = {
@@ -233,6 +236,28 @@ public class Hangman {
              return false;
     }
 
+    public static boolean getIntValue()
+    {
+        
+        Scanner scanForInt = new Scanner(System.in);
+        try
+        {
+            scanForInt.nextInt();
+            scanForInt.next();
+            scanForInt.close();
+            return true;
+        }
+        catch(InputMismatchException e)
+        {
+            scanForInt.next();
+            scanForInt.close();
+            return false;
+        }
+          
+         
+         
+
+    }
      
 
     public static void main(String[] args) {
@@ -279,7 +304,29 @@ public class Hangman {
 
                  case "b":
                      System.out.print("\nWhat letter length would you like to play: ");
-                     int letterLength = scan.nextInt();
+                     
+                     //length of word
+                     int letterLength=0;
+
+                     //exit the loop once this value is true and user types in the correct input
+                     boolean done = false;
+
+                     //run until the user enters in a valid int number
+                     while(!done)
+                     {
+                        if(getIntValue())
+                        {  
+                            letterLength = scan.nextInt();
+                             
+                            done=true;
+                        }
+                        else
+                        {
+                            System.out.println("Please enter a number value: ");
+                        }  
+                     }
+                     
+                     
                      // call next line again to move out of error caused by nextInt
                      scan.nextLine();
 
